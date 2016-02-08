@@ -5,11 +5,9 @@ html
     body
         div.container
         div.jumbotron
-        h1 Add words
+        h1 Learn words
         
         a(href="/") home
         
-        div.container
-            form(name="addWord", action="/addWord", method="post")
-                input(type="text", name="word")                
-                input(type="submit", value="login")
+        div
+            #{ words }

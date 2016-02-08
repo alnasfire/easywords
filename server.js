@@ -1,5 +1,5 @@
 var express = require('express');
-
+var fs = require('fs');
 var app = express();
 
 app.set('views', './views');
@@ -18,8 +18,10 @@ app.get('/add', function(req, res) {
 });
 
 app.get('/learn', function(req, res) {
-  res.render('Learn', {
-    title: 'Learn words'
+  let result = JSON.parse(fs.readFileSync('words', 'utf8'));
+  res.render('learn', {
+    title: 'Learn words',
+    words: result
   });
 });
 
