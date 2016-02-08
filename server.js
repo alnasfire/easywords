@@ -1,7 +1,25 @@
-var http = require("http");
+var express = require('express');
+var stormpath = require('express-stormpath');
 
-http.createServer(function(request, response) {
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.write("Hello World");
-  response.end();
-}).listen(8888);
+var app = express();
+
+app.set('views', './views');
+app.set('view engine', 'jade');
+
+app.use(stormpath.init(app, {
+  website: true,
+  expand: {
+    customData: true
+  }
+}));
+
+app.get('/', function(req, res) {
+  res.render('home', {
+    title: 'Welcome'
+  });
+});
+
+app.on('stormpath.ready',function(){
+  console.log('Stormpath Ready');
+  app.listen(3000);
+});
